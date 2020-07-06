@@ -26,26 +26,29 @@ namespace crudAPI.Controllers
         [HttpGet("{id:int}")]
         public ActionResult<Customer> GetCustomer(int id)
         {
-            var c1 = new Customer("Edith", "Finch");
-            return c1;
+            var customer = _dict.GetCustomer(id);
+            return Ok(customer);
         }
         
         [HttpPost]
-        public ActionResult<Customer> AddCustomer()
+        public ActionResult<Customer> AddCustomer(string firstName, string lastName)
         {
-            return new Customer("Samantha", "Greenbriar");
+            var customer = _dict.InsertCustomer(firstName, lastName);
+            return Ok(customer);
         }
         
         [HttpPut("{id:int}")]
-        public ActionResult<Customer> UpdateCustomer(int id)
+        public ActionResult<Customer> UpdateCustomer(int id, string firstName, string lastName)
         {
-            return new Customer("Jesse", "Faden");
+            var customer = _dict.UpdateCustomer(id, firstName, lastName);
+            return Ok(customer);
         }
 
         [HttpDelete("{id:int}")]
         public ActionResult<string> DeleteCustomer(int id)
         {
-            return $"Well, customer {id} will not bother us again, will she?";
+            _dict.RemoveCustomer(id);
+            return Ok();
         }
     }
 }
