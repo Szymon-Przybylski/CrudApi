@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using crudAPI.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace crudAPI.Controllers
@@ -8,26 +9,18 @@ namespace crudAPI.Controllers
     [Route("api/customers")]
     public class CustomerController : Controller
     {
-        private ILog _log;
+        private ICustomersDictionary _dict;
 
-        public CustomerController(ILog log)
+        public CustomerController(ICustomersDictionary dict)
         {
-            _log = log;
+            _dict = dict;
         }
 
-        public IActionResult Index()
-        {
-            _log.Info("Currently here");
-            return View();
-        }
-        
         [HttpGet]
-        public ActionResult<List<Customer>> GetCustomer()
+        public ActionResult<IList<Customer>> GetCustomer()
         {
-            var customers = new List<Customer>();
-            var c1 = new Customer("Edith", "Finch");
-            customers.Add(c1);
-            return customers;
+            var customers = _dict.GetCustomers();
+            return Ok(customers);
         }
         
         [HttpGet("{id:int}")]
