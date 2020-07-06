@@ -24,7 +24,7 @@ namespace crudAPI.Controllers
         [HttpGet]
         public ActionResult<List<Customer>> GetCustomer()
         {
-            var  customers = new List<Customer>();
+            var customers = new List<Customer>();
             var c1 = new Customer("Edith", "Finch");
             customers.Add(c1);
             return customers;
