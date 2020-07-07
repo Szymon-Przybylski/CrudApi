@@ -1,20 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+using crudAPI.Data.Abstract;
 
-namespace crudAPI.Data
+namespace crudAPI.Data.Concrete
 {
-    public interface ICustomersDictionary
-    {
-        IList<Customer> GetCustomers();
-        Customer GetCustomer(int key);
-        Customer InsertCustomer(string firstName, string lastName);
-        Customer UpdateCustomer(int key, string firstName, string lastName);
-        void RemoveCustomer(int key);
-    }
-    
     public class CustomersDictionary : ICustomersDictionary
     {
         private IDictionary<int, Customer> _dict = new Dictionary<int, Customer>();
@@ -43,20 +33,17 @@ namespace crudAPI.Data
             }
         }
 
-        public Customer InsertCustomer(string firstName, string lastName)
+        public Customer InsertCustomer(Customer customer)
         {
-            Customer customer = new Customer(firstName, lastName);
-            //return customer;
-            _dict[customer.Id] = customer;
+            var newCustomer = new Customer(customer.CustomerFirstName, customer.CustomerLastName);
+            _dict[newCustomer.Id] = newCustomer;
             return customer;
         }
         
-        public Customer UpdateCustomer(int key, string firstName, string lastName)
+        public Customer UpdateCustomer(int key, Customer customer)
         {
-            Customer customer = _dict[key];
-            customer.CustomerFirstName = firstName;
-            customer.CustomerLastName = lastName;
-            _dict[key] = customer;
+            var updatedCustomer = new Customer(key, customer.CustomerFirstName, customer.CustomerLastName);
+            _dict[key] = updatedCustomer;
             return customer;
         }
 

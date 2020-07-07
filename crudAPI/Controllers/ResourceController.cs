@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace crudAPI.Controllers
@@ -10,9 +11,9 @@ namespace crudAPI.Controllers
     {
 
         [HttpGet]
-        public ActionResult<List<Resource>> GetResource()
+        public ActionResult<Collection<Resource>> GetResource()
         {
-            var  resources = new List<Resource>();
+            var  resources = new Collection<Resource>();
             var r1 = new Resource("copper");
             resources.Add(r1);
             return resources;

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using crudAPI.Data;
+using crudAPI.Data.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace crudAPI.Controllers
@@ -31,17 +32,17 @@ namespace crudAPI.Controllers
         }
         
         [HttpPost]
-        public ActionResult<Customer> AddCustomer(string firstName, string lastName)
+        public ActionResult<Customer> AddCustomer(Customer customer)
         {
-            var customer = _dict.InsertCustomer(firstName, lastName);
-            return Ok(customer);
+            var result = _dict.InsertCustomer(customer);
+            return Ok(result);
         }
         
         [HttpPut("{id:int}")]
-        public ActionResult<Customer> UpdateCustomer(int id, string firstName, string lastName)
+        public ActionResult<Customer> UpdateCustomer(int id, Customer customer)
         {
-            var customer = _dict.UpdateCustomer(id, firstName, lastName);
-            return Ok(customer);
+            var result = _dict.UpdateCustomer(id, customer);
+            return Ok(result);
         }
 
         [HttpDelete("{id:int}")]
