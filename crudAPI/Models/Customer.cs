@@ -12,13 +12,13 @@ namespace crudAPI.Models
         
         private static int _currentCustomerId = 1;
         [BsonElement("customerId")]
-        public int Id { get; }
+        public int Id { get; set; }
         [BsonElement("firstName")]
-        public string CustomerFirstName { get; }
+        public string CustomerFirstName { get; set; }
         [BsonElement("lastName")]
-        public string CustomerLastName { get; }
+        public string CustomerLastName { get; set; }
         [BsonElement("resources")]
-        public Collection<Resource> CustomerResources { get; }
+        public Collection<Resource> CustomerResources { get; set; }
 
         public Customer()
         {

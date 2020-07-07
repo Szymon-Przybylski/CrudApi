@@ -21,7 +21,8 @@ namespace crudAPI.Services
             => _customers.Find(customer => true).ToList();
 
         public Customer Get(string customerId)
-            => _customers.Find<Customer>(customer => customer.Id.ToString() == customerId).FirstOrDefault();
+            => _customers.Find<Customer>(customer => customer.Id == int.Parse(customerId)).FirstOrDefault();
+        //not supported operation tostring
 
         public Customer Insert(Customer customer)
         {
@@ -31,12 +32,12 @@ namespace crudAPI.Services
 
         public void Update(string customerId, Customer updatedCustomer)
         {
-            _customers.ReplaceOne(customer => customer.Id.ToString() == customerId, updatedCustomer);
+            _customers.ReplaceOne(customer => customer.Id == int.Parse(customerId), updatedCustomer);
         }
 
         public void Delete(string customerId)
         {
-            _customers.DeleteOne(customer => customer.Id.ToString() == customerId);
+            _customers.DeleteOne(customer => customer.Id == int.Parse(customerId));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using crudAPI.Data.Abstract;
 using crudAPI.Models;
+using crudAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,35 +9,39 @@ namespace crudAPI.Controllers
 {
 
     [ApiController]
-    [Route("api/customers")]
-    public class CustomerController : Controller
+    [Route("api/[controller]")]
+    public class CustomersController : Controller
     {
-        private ICustomersDictionary _dict;
+        private readonly ICustomersDictionary _dict;
+        private readonly CustomerService _service;
 
-        public CustomerController(ICustomersDictionary dict)
+        public CustomersController(ICustomersDictionary dict, CustomerService service)
         {
             _dict = dict;
+            _service = service;
         }
 
         [HttpGet]
         public ActionResult<IList<Customer>> GetCustomer()
-        {
-            var customers = _dict.GetCustomers();
-            return Ok(customers);
-        }
-        
+            => _service.Get();
+
         [HttpGet("{id:int}")]
         public ActionResult<Customer> GetCustomer(int id)
         {
-            var customer = _dict.GetCustomer(id);
+            var customer = _service.Get(id.ToString());
+            if (customer == null)
+            {
+                return NotFound();
+            }
             return Ok(customer);
         }
         
         [HttpPost]
         public ActionResult<Customer> AddCustomer(Customer customer)
         {
-            _dict.InsertCustomer(customer);
-            return StatusCode(StatusCodes.Status201Created);
+            _service.Insert(customer);
+            //return CreatedAtRoute("Flavor text here", new {id = customer.Id.ToString()}, customer);
+            return Ok();
         }
         
         [HttpPut("{id:int}")]
