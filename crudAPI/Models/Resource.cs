@@ -1,4 +1,4 @@
-﻿namespace crudAPI
+﻿namespace crudAPI.Models
 {
     public class Resource
     {

@@ -1,14 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
-namespace crudAPI
+namespace crudAPI.Models
 {
     public class Customer
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string DbId { get; set; }
+        
         private static int _currentCustomerId = 1;
+        [BsonElement("customerId")]
         public int Id { get; }
+        [BsonElement("firstName")]
         public string CustomerFirstName { get; }
+        [BsonElement("lastName")]
         public string CustomerLastName { get; }
+        [BsonElement("resources")]
         public Collection<Resource> CustomerResources { get; }
 
         public Customer()

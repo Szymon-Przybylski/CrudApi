@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using crudAPI.Data.Abstract;
+using crudAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

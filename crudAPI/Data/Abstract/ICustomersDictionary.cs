@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using crudAPI.Models;
 using Microsoft.AspNetCore.Http;
 
 namespace crudAPI.Data.Abstract
