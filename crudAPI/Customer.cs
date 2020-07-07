@@ -7,9 +7,9 @@ namespace crudAPI
     {
         private static int _currentCustomerId = 1;
         public int Id { get; }
-        public string CustomerFirstName { get; set; }
-        public string CustomerLastName { get; set; }
-        public Collection<Resource> CustomerResources { get; set; }
+        public string CustomerFirstName { get; }
+        public string CustomerLastName { get; }
+        public Collection<Resource> CustomerResources { get; }
 
         public Customer()
         {
@@ -37,7 +37,7 @@ namespace crudAPI
             Id = _currentCustomerId;
             CustomerFirstName = firstName;
             CustomerLastName = lastName;
-            CustomerResources = new Collection<Resource>();
+            CustomerResources = resources;
 
             _currentCustomerId += 1;
         }

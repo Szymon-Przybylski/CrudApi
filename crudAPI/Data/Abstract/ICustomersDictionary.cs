@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Microsoft.AspNetCore.Http;
 
 namespace crudAPI.Data.Abstract
 {
@@ -7,8 +8,9 @@ namespace crudAPI.Data.Abstract
     {
         IList<Customer> GetCustomers();
         Customer GetCustomer(int key);
-        Customer InsertCustomer(Customer customer);
-        Customer UpdateCustomer(int key, Customer customer);
+        void InsertCustomer(Customer customer);
+        void UpdateCustomer(int key, Customer customer);
         void RemoveCustomer(int key);
+        bool ContainsCustomer(int key);
     }
 }
