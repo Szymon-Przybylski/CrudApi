@@ -2,9 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using crudAPI.Data;
-using crudAPI.Data.Abstract;
-using crudAPI.Data.Concrete;
 using crudAPI.Models.Abstract;
 using crudAPI.Models.Concrete;
 using crudAPI.Services;
@@ -38,7 +35,6 @@ namespace crudAPI
             services.AddSingleton<ICustomerDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<CustomerDatabaseSettings>>().Value);
             
-            services.AddSingleton<ICustomersDictionary, CustomersDictionary>();
             services.AddSingleton<CustomerService>();
             
             services.AddControllers();

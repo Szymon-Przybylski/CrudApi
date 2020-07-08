@@ -11,8 +11,9 @@ namespace crudAPI.Models
         public string DbId { get; set; }
         
         private static int _currentCustomerId = 1;
+        
         [BsonElement("customerId")]
-        public int Id { get; set; }
+        public int Id { get; }
         [BsonElement("firstName")]
         public string CustomerFirstName { get; set; }
         [BsonElement("lastName")]
@@ -34,19 +35,21 @@ namespace crudAPI.Models
 
             _currentCustomerId += 1;
         }
-        public Customer(int desiredId, string firstName, string lastName)
-        {
-            Id = desiredId;
-            CustomerFirstName = firstName;
-            CustomerLastName = lastName;
-            CustomerResources = new Collection<Resource>();
-        }
         public Customer(string firstName, string lastName, Collection<Resource> resources)
         {
             Id = _currentCustomerId;
             CustomerFirstName = firstName;
             CustomerLastName = lastName;
             CustomerResources = resources;
+
+            _currentCustomerId += 1;
+        }
+        public Customer(Customer c)
+        {
+            Id = _currentCustomerId;
+            CustomerFirstName = c.CustomerFirstName;
+            CustomerLastName = c.CustomerLastName;
+            CustomerResources = new Collection<Resource>();
 
             _currentCustomerId += 1;
         }

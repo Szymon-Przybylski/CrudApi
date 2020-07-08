@@ -22,7 +22,6 @@ namespace crudAPI.Services
 
         public Customer Get(string customerId)
             => _customers.Find<Customer>(customer => customer.Id == int.Parse(customerId)).FirstOrDefault();
-        //not supported operation tostring
 
         public Customer Insert(Customer customer)
         {

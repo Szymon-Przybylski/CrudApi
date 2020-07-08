@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using crudAPI.Data.Abstract;
 using crudAPI.Models;
 using crudAPI.Services;
 using Microsoft.AspNetCore.Http;
@@ -12,12 +11,10 @@ namespace crudAPI.Controllers
     [Route("api/[controller]")]
     public class CustomersController : Controller
     {
-        private readonly ICustomersDictionary _dict;
         private readonly CustomerService _service;
 
-        public CustomersController(ICustomersDictionary dict, CustomerService service)
+        public CustomersController(CustomerService service)
         {
-            _dict = dict;
             _service = service;
         }
 
@@ -39,25 +36,33 @@ namespace crudAPI.Controllers
         [HttpPost]
         public ActionResult<Customer> AddCustomer(Customer customer)
         {
-            _service.Insert(customer);
-            //return CreatedAtRoute("Flavor text here", new {id = customer.Id.ToString()}, customer);
-            return Ok();
+            var c = new Customer(customer);
+            _service.Insert(c);
+            return CreatedAtRoute(new {id = c.Id.ToString()}, c);
         }
         
         [HttpPut("{id:int}")]
         public ActionResult<Customer> UpdateCustomer(int id, Customer customer)
         {
-            if (!_dict.ContainsCustomer(id)) return NotFound();
-            _dict.UpdateCustomer(id, customer);
-            return Ok();
+            var customerToUpdate = _service.Get(id.ToString());
+            if (customerToUpdate == null)
+            {
+                return NotFound();
+            }
+            _service.Update(id.ToString(), customer);
+            return NoContent();
         }
 
         [HttpDelete("{id:int}")]
         public ActionResult<string> DeleteCustomer(int id)
         {
-            if (!_dict.ContainsCustomer(id)) return NotFound();
-            _dict.RemoveCustomer(id);
-            return Ok();
+            var customerToUpdate = _service.Get(id.ToString());
+            if (customerToUpdate == null)
+            {
+                return NotFound();
+            }            
+            _service.Delete(id.ToString());
+            return NoContent();
         }
     }
 }
