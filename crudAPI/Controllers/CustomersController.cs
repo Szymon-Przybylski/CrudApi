@@ -36,22 +36,22 @@ namespace crudAPI.Controllers
         [HttpPost]
         public ActionResult<Customer> AddCustomer(Customer customer)
         {
-            var c = new Customer(customer);
-            _service.Insert(c);
-            return CreatedAtRoute(new {id = c.Id.ToString()}, c);
+            var newCustomer = new Customer(customer);
+            _service.Insert(newCustomer);
+            return CreatedAtRoute(new {id = newCustomer.Id.ToString()}, newCustomer);
         }
         
         [HttpPut("{id:int}")]
         public ActionResult<Customer> UpdateCustomer(int id, Customer customer)
         {
-            var c = new Customer(id, customer);
+            var updatedCustomer = new Customer(id, customer);
             var customerToUpdate = _service.Get(id.ToString());
             if (customerToUpdate == null)
             {
                 return NotFound();
             }
-            c.DbId = customerToUpdate.DbId;
-            _service.Update(id.ToString(), c);
+            updatedCustomer.DbId = customerToUpdate.DbId;
+            _service.Update(id.ToString(), updatedCustomer);
             return NoContent();
         }
 
