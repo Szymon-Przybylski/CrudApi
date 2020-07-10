@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Convey;
 using crudAPI.Models.Abstract;
 using crudAPI.Models.Concrete;
 using crudAPI.Services;
@@ -36,6 +37,8 @@ namespace crudAPI
                 sp.GetRequiredService<IOptions<CustomerDatabaseSettings>>().Value);
             
             services.AddSingleton<CustomerService>();
+
+            services.AddConvey().Build();
             
             services.AddControllers();
         }
